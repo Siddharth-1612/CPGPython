@@ -3,11 +3,17 @@ from typing import List
 
 class Employee(ABC):
     @abstractmethod
+
     def work(self):
         pass
     
     @abstractmethod
     def get_salary(self):
+        def work(self) -> str:
+            pass
+    
+    @abstractmethod
+    def get_salary(self) -> float:
         pass
 
 
@@ -42,7 +48,8 @@ class Intern(Employee):
         self.title = "Intern"
 
     def work(self):
-        return f"{self.name} is learning and assisting."
+        def work(self) -> str:
+            return f"{self.name} is learning and assisting."
 
     def get_salary(self):
         return self.salary
@@ -60,6 +67,7 @@ class Security(Employee):
         return self.salary
 
 class Department:
+
     def __init__(self, name):
         self.name = name
         self.employees: List[Employee] = []
@@ -82,15 +90,45 @@ class Department:
         elif isinstance(employee, Intern):
             employee.title = "Full-Time Employee"
             employee.salary *= 1.5  
+
+    def __init__(self, name: str):
+        self.name = name
+        self.employees: List[Employee] = []
+
+    def hire(self, employee: Employee) -> None:
+        self.employees.append(employee)
+        print(f"{employee.name} has been hired as {employee.title}.")
+
+    def fire(self, employee: Employee) -> None:
+        self.employees.remove(employee)
+        print(f"{employee.name} has been fired.")
+    
+    def promote(self, employee: Employee) -> None:
+        if isinstance(employee, Manager):
+            employee.title = "Regional Manager"
+            employee.salary *= 1.3  # 30% increment
+        elif isinstance(employee, Developer):
+            employee.title = "Senior Developer"
+            employee.salary *= 1.2  # 20% increment
+        elif isinstance(employee, Intern):
+            employee.title = "Full-Time Employee"
+            employee.salary *= 1.5  # 50% increment
+
         print(f"{employee.name} has been promoted to {employee.title}.")
     
     def demote(self, employee: Employee) -> None:
         if isinstance(employee, Manager):
             employee.title = "Assistant Manager"
+
             employee.salary *= 0.8  
         elif isinstance(employee, Developer):
             employee.title = "Junior Developer"
             employee.salary *= 0.8  
+
+            employee.salary *= 0.8  # 20% decrement
+        elif isinstance(employee, Developer):
+            employee.title = "Junior Developer"
+            employee.salary *= 0.8  # 20% decrement
         elif isinstance(employee, Intern):
             print(f"{employee.name} did not get a full-time offer and remains an intern.")
             return
@@ -103,6 +141,7 @@ class Department:
         print(f"Employees in {self.name} Department:")
         for employee in self.employees:
             print(f"- {employee.name}, Salary: {employee.get_salary()}, Role: {employee.work()}")
+
 
 
 manager = Manager("Alice", 80000)
