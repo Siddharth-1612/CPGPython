@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .text-danger {
+            color: rgb(219, 46, 46);
+        }
+    </style>
+    <script>
+        function check_credentials(event) {
+            event.preventDefault(); 
+            
+            var username = document.getElementById("txtUsername").value.trim();
+            var password = document.getElementById("txtPassword").value.trim();
+            
+            var usernameError = document.getElementById("usernameError");
+            var passwordError = document.getElementById("passwordError");
+
+            
+            usernameError.innerText = "";
+            passwordError.innerText = "";
+
+            let isValid = true;
+
+            
+            if (username === "") {
+                usernameError.innerText = "Username is required!";
+                isValid = false;
+            }
+
+            if (password === "") {
+                passwordError.innerText = "Password is required!";
+                isValid = false;
+            }
+            
+        
+        return false;
+        if(username==="admin" && password==="1234")
+        {
+            loginmessage.style.color="green";
+            loginmessage.textContent="login successfull";
+        }
+        else
+        {
+            loginmessage.style.color="red";
+            loginmessage.textContent="login unsuccessfull";
+        }
+        if (isValid) {
+            alert("Login successful!");
+            return true;
+        }
+
+        return false;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form onsubmit="return check_credentials(event)">
+            <div class="form-group">
+                <label for="txtUsername">Username</label>
+                <input type="text" id="txtUsername" class="form-control">
+                <span id="usernameError" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="txtPassword">Password</label>
+                <input type="password" id="txtPassword" class="form-control">
+                <span id="passwordError" class="text-danger"></span>
+            </div>
+
+            <input type="submit" class="btn btn-danger" value="Login">
+        </form>
+    </div>
+</body>
+</html>
